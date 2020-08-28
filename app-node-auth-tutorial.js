@@ -854,4 +854,141 @@ Rogers-iMac:node_auth_tutorial Home$ nodemon app
 // " git commit -m " Message " "
 // " git push origin master "
 
+
+// now our project files are in the GitHub repository and now we need to create a repository
+// in Heroku and we can do that by typing the following in the integrated terminal:
+
+// STEP 9: Rogers-iMac:node_auth_tutorial Home$ heroku create c-node-auth
+
+// and after I created this repository in Heroku, Heroku generated the following Heroku URL
+// " https://c-node-auth.herokuapp.com/ " 
+
+// now we have to add Heroku as a remote repository and we do that by going to the Heroku
+// website and then we press on the " deploy " tab and then inside this tab we want to copy
+// " heroku git:remote -a "Heroku Project Name" " and this line of code will add Heroku as
+// a remote repository
+
+// STEP 10: Rogers-iMac:node_auth_tutorial Home$ heroku git:remote -a c-node-auth
+
+// now if I do:
+/*
+Rogers-iMac:node_auth_tutorial Home$ git remote
+*/
+
+// then I get the following result ( so I have 2 repositories now, Heroku and origin or GitHUb )
+/*
+heroku
+origin
+*/
+
+// now let's push our project files to our Heroku repository
+
+// STEP 11: Rogers-iMac:node_auth_tutorial Home$ git push heroku master
+
+// after pressing enter on " git push heroku master ", I got the following result in the integrated
+// terminal:
+
+/*
+Rogers-iMac:node_auth_tutorial Home$ git push heroku master
+Counting objects: 18, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (17/17), done.
+Writing objects: 100% (18/18), 55.66 KiB | 9.28 MiB/s, done.
+Total 18 (delta 0), reused 0 (delta 0)
+remote: Compressing source files... done.
+remote: Building source:
+remote:
+remote: -----> Node.js app detected
+remote:
+remote: -----> Creating runtime environment
+remote:
+remote:        NPM_CONFIG_LOGLEVEL=error
+remote:        NODE_ENV=production
+remote:        NODE_MODULES_CACHE=true
+remote:        NODE_VERBOSE=false
+remote:
+remote: -----> Installing binaries
+remote:        engines.node (package.json):  unspecified
+remote:        engines.npm (package.json):   unspecified (use default)
+remote:
+remote:        Resolving node version 12.x...
+remote:        Downloading and installing node 12.18.3...
+remote:        Using default npm version: 6.14.6
+remote:
+remote: -----> Installing dependencies
+remote:        Installing node modules
+remote:
+remote:        > ejs@3.1.3 postinstall /tmp/build_87dba27f/node_modules/ejs
+remote:        > node --harmony ./postinstall.js
+remote:
+remote:
+remote:        > node-sass@4.14.1 install /tmp/build_87dba27f/node_modules/node-sass
+remote:        > node scripts/install.js
+remote:
+remote:        Downloading binary from https://github.com/sass/node-sass/releases/download/v4.14.1/linux-x64-72_binding.node
+remote:        Download complete
+remote:        Binary saved to /tmp/build_87dba27f/node_modules/node-sass/vendor/linux-x64-72/binding.node
+remote:        Caching binary to /tmp/npmcache.dR1WB/_cacache/node-sass/4.14.1/linux-x64-72_binding.node
+remote:
+remote:        > node-sass@4.14.1 postinstall /tmp/build_87dba27f/node_modules/node-sass
+remote:        > node scripts/build.js
+remote:
+remote:        Binary found at /tmp/build_87dba27f/node_modules/node-sass/vendor/linux-x64-72/binding.node
+remote:        Testing binary
+remote:        Binary is fine
+remote:        added 266 packages in 5.585s
+remote:
+remote: -----> Build
+remote:
+remote: -----> Caching build
+remote:        - node_modules
+remote:
+remote: -----> Pruning devDependencies
+remote:        audited 266 packages in 2.457s
+remote:
+remote:        7 packages are looking for funding
+remote:          run `npm fund` for details
+remote:
+remote:        found 0 vulnerabilities
+remote:
+remote:
+remote: -----> Build succeeded!
+remote:  !     This app may not specify any way to start a node process
+remote:        https://devcenter.heroku.com/articles/nodejs-support#default-web-process-type
+remote:
+remote: -----> Discovering process types
+remote:        Procfile declares types     -> (none)
+remote:        Default types for buildpack -> web
+remote:
+remote: -----> Compressing...
+remote:        Done: 28.2M
+remote: -----> Launching...
+remote:        Released v3
+remote:        https://c-node-auth.herokuapp.com/ deployed to Heroku
+remote:
+remote: Verifying deploy... done.
+To https://git.heroku.com/c-node-auth.git
+ * [new branch]      master -> master
+Rogers-iMac:node_auth_tutorial Home$
+*/
+
+// and I tired to open the heroku provided URL and I got an error on the web page that said
+// " Application error " so I went to the suggested link at
+// " https://devcenter.heroku.com/articles/nodejs-support#default-web-process-type "
+// to see if I could solve the error
+
 // 
+
+
+
+
+/*
+"scripts": {
+        "start": "node app.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+},
+
+"engines": {
+    "node": "10.x"
+}
+*/

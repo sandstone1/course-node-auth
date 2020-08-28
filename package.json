@@ -11,6 +11,7 @@
     },
     "devDependencies": {},
     "scripts": {
+        "start": "node app.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -23,5 +24,8 @@
     "bugs": {
         "url": "https://github.com/iamshaunjp/node-express-jwt-auth.git/issues"
     },
-    "homepage": "https://github.com/iamshaunjp/node-express-jwt-auth#readme"
+    "homepage": "https://github.com/iamshaunjp/node-express-jwt-auth#readme",
+    "engines": {
+        "node": "10.x"
+    }
 }
