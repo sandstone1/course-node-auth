@@ -977,10 +977,19 @@ Rogers-iMac:node_auth_tutorial Home$
 // " https://devcenter.heroku.com/articles/nodejs-support#default-web-process-type "
 // to see if I could solve the error
 
-// 
 
 
 
+
+
+
+// after updating my package.json file as follows:
+
+/*
+"scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+},
+*/
 
 /*
 "scripts": {
@@ -992,3 +1001,9 @@ Rogers-iMac:node_auth_tutorial Home$
     "node": "10.x"
 }
 */
+
+// and then pushing these changes to my GitHub
+// 
+
+
+
