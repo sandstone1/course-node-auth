@@ -972,38 +972,358 @@ To https://git.heroku.com/c-node-auth.git
 Rogers-iMac:node_auth_tutorial Home$
 */
 
-// and I tired to open the heroku provided URL and I got an error on the web page that said
+// and I tried to open the heroku provided URL and I got an error on the web page that said
 // " Application error " so I went to the suggested link at
 // " https://devcenter.heroku.com/articles/nodejs-support#default-web-process-type "
 // to see if I could solve the error
 
+// I tried to update the package.json file with " "start": "node app.js" " and
+// " "engines": { "node": "10.x" } " but I'm still getting the same error so let's move
+// on with the tutorial and maybe solve this problem later
+
+
+// BACK TO TUTORIAL 2
+
+// before we actually code any routes or controller functions for our authentication
+// process the net ninja wants to go over all the different routes and handler functions
+// that we will be making and how we will structure the routes and functions and were doing this
+// so that we can get the big picture of what were doing
+
+// and we will use an MVC approach to creating this application and that just means that we
+// will be extracting all of our auth route handler functions into a separate auth controller
+// file and our auth routes will look like the following:
+
+// Auth Routes
+
+// 1 - /signup      GET         sign up page
+// 2 - /login       GET         log in page
+// 3 - /signup      POST        create a new user in database
+// 4 - /login       POST        authenticate a current user
+// 5 - /logout      GET         log a user out
+
+// and in this tutorial we are going to focus on the routes 1 - 4
+
+// now let's start flushing out these routes and the first thing we need to do is to create
+// folder called " routes " and then inside this folder we need to create a file for our
+// authentication routes and we will call this file " authRoutes.js " and let's go to the
+// authRoutes.js file 1 -
 
 
 
+// ==============================
+// BACK FROM NODE_AUTH_TUTORIAL/ROUTES/AUTHROUTES.JS -- NOTES PERTAIN TO 1 -, 2 -
+// ==============================
 
 
-
-// after updating my package.json file as follows:
+// 1 -
 
 /*
-"scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-},
+// the first thing we need to do is import in the router from the Express package
+// and really we are going to destructure the Router off the Express package
+const { Router } = require( 'express' );
+
+// now let's create a new instance of Router and then all we do is attach different
+// requests to this router instance
+const router = new Router();
 */
+
+// instead of using the above code to create a router instance, I'm going to stick
+// with the code we used in the node crash course
+
+// import in Express
+const express = require( 'express' );
+
+
+// 2 -
+
+// now were coming from the authControllers.js file 1 - and now let's import in our controller
+// functions and we do that by doing " require( '../controllers/authController' ); " and then
+// let's register these controller functions inside the relavant routes below
+
+// and separating out the controller functions makes our code way more readable and managable
+const authController = require( '../controllers/authController' );
+
+// next we need to create the " signup " and " login " views so let's create the " signup.ejs "
+// and " login.ejs " files and place both files inside the views folder and now let's go to
+// the signup.ejs file 1 -
+
+// End of 2 -
+
+
+// next let's create a new Express router and we do that by creating a new instance of a router
+// object and the code to create a new instance of the router object is " express.Router(); "
+
+// create a new Express router instance
+const router = express.Router();
+
+
+// route #1
+// route is "/signup"
+// renders the sign up page
+router.get( '/signup', authController.signup_get );
+
+
+// route #2
+// route is "/signup"
+// create a new user in database
+router.post( '/signup', authController.signup_post );
+
+
+// route #3
+// route is "/login"
+// renders the log in page
+router.get( '/login', authController.login_get );
+
+
+// route #4
+// route is "/login"
+// authenticate a current user
+router.post( '/login', authController.login_post );
+
+// and remember we are going to separate the handler functions into their own auth controller
+// file so let's first create a folder called " controllers " and then inside the controllers
+// folder let's create a file called " authController.js " and let's go to the
+//  " authController.js " file 1 -
+
+
+// let's export the router and then go to the app.js file 2 - to import in the router
+module.exports = router;
+
+// End of 1 -
+
+
+
+
+
+// -------------------- END OF FILE
+
+
+
+
+
+
+// ==============================
+// BACK FROM NODE_AUTH_TUTORIAL/CONTROLLERS/AUTHCONTROLLER.JS -- NOTES PERTAIN TO 1 -
+// ==============================
+
+
+// 1 -
+// controller #1
+// renders the sign up page
+module.exports.signup_get = ( req, res ) => {
+
+    res.render( 'signup' );
+
+};
+
+// controller #2
+// create a new user in database
+module.exports.signup_post = ( req, res ) => {
+
+    // for now, let's just send some text to the webpage
+    res.send( 'new signup' );
+
+};
+
+
+// controller #3
+// renders the log in page
+module.exports.login_get = ( req, res ) => {
+
+    res.render( 'login' );
+
+};
+
+
+// controller #4
+// authenticate a current user
+module.exports.login_post = ( req, res ) => {
+
+    // for now, let's just send some text to the webpage
+    res.send( 'new login' );
+
+};
+
+// now let's go to the authRoutes.js file 2 - and import in these controllers 
+
+// End of 1 -
+
+
+
+
+// -------------------- END OF FILE
+
+
+
+
+
+
+
+// ==============================
+// BACK FROM NODE_AUTH_TUTORIAL/VIEWS/SIGNUP.EJS -- NOTES PERTAIN TO 1 -
+// ==============================
+
 
 /*
-"scripts": {
-        "start": "node app.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
-},
+<!--
+    // 1 -
+    // and after we bring in the partials and add the h1 tag, let go to the login.ejs file 1 -
+-->
 
-"engines": {
-    "node": "10.x"
-}
+<%- include( './partials/header.ejs' ) %>
+
+    <h1>Sign Up</h1>
+
+<%- include( './partials/footer.ejs' ) %>
 */
 
-// and then pushing these changes to my GitHub
+
+// -------------------- END OF FILE
+
+
+
+
+
+
+// ==============================
+// BACK FROM NODE_AUTH_TUTORIAL/VIEWS/LOGIN.EJS -- NOTES PERTAIN TO 1 -
+// ==============================
+
+
+/*
+<!--
+    // 1 -
+    // and after we bring in the partials and add the h1 tag, let go to back to the
+    // so now we have our views which we are rendering in the authController.js file and
+    // we have all of our controller functions which we are registering for each route and
+    // the only thing left to do is register these routes in our application so let's go back
+    // to the app.js file 2 -
+-->
+
+<%- include( './partials/header.ejs' ) %>
+
+    <h1>Log In</h1>
+
+<%- include( './partials/footer.ejs' ) %>
+*/
+
+
+
+// -------------------- END OF FILE
+
+
+
+
+
+
+// ==============================
+// BACK FROM NODE_AUTH_TUTORIAL/APP.JS -- NOTES PERTAIN TO 2 - and 3 -
+// ==============================
+
+
+// this file or app.js will kickstart our application  
+
+// import in Express
+const express = require( 'express' );
+
+// import in Mongoose
+const mongoose = require( 'mongoose' );
+
+// 2 -
+// import in the router
+// and now all we have to do is make authRoutes the argument to app.use(); bwlow and this is equal
+// to pasting in all the routes instead and let's go to 3 - below
+const authRoutes = require( './routes/authRoutes' );
+
+// End of 2 -
+
+// create an instance of an Express app
+const app = express();
+
+// use express.static(); to serve static files and make " public " the argument to
+// express.static(); and this will enable us to use the " public " folder to serve static
+// files
+app.use( express.static( 'public' ) );
+
+// register the view engine as ejs
+app.set( 'view engine', 'ejs' );
+
+// Brad Schiff said we have to make our port number dynamic in order for our app to work on Heroku
+let port = process.env.PORT || 3006;
+
+// create the database connection
+const dbURI = 'mongodb+srv://net-ninja-node:test1234@cluster1.ygd2v.mongodb.net/net-ninja-auth-tutorial';
+
+mongoose.connect( dbURI, { useNewUrlParser : true, useUnifiedTopology : true } )
+    .then( ( result ) => app.listen( port ) )
+    .catch( ( error ) => console.log( error ) );
+
+// routes
+// route #1
+// route is "/"
+// renders the home page
+app.get( '/', ( req, res ) => {
+
+    res.render( 'home' );
+
+} );
+
+// route #2
+// route is "/smoothies"
+// renders the smoothies page
+app.get( '/smoothies', ( req, res ) => {
+
+    res.render( 'smoothies' );
+
+} );
+
+
+
+// 3 -
+// use " app.use( authRoutes ); " to bring in all the routes from the authRoutes.js file and
+// remember " app.use( authRoutes ); " has to go before route #3 below, otherwise route #3 will
+// run and everytime we go to " localhost:3006/signup ", for example, we will get a 404 page
+app.use( authRoutes );
+
+// now let's go to the homepage and test our the following 2 routes: " /signup " and " /login "
+// and I see everything is working as expected
+
+// we also want to test our post requests or routes #2 and #4 in the authRoutes.js file but we
+// don't have the signup or login forms created yet so we need a quick way to test these two routes
+// and in the next lesson we will use a tool called " postman " to test these 2 routes
+
+// End of 3 -
+
+
+// route #3
+// create the 404 response and manually set the status code to 404
+// no route and if we get to this part in the code app.use(); will always run
+// renders the 404 page
+app.use( ( req, res ) => {
+
+    res.status( 404 ).render( '404', { title : '404' } );
+
+} );
+
+
+
+
+
+// -------------------- END OF FILE
+
+
+
+
+
+
+
+
+
+
+
+
+// ==============================
+// TUTORIAL 3 - Testing Routes & Handling POST Requests
+// ==============================
+
 // 
-
-
-

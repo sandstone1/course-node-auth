@@ -9,6 +9,14 @@ const express = require( 'express' );
 // import in Mongoose
 const mongoose = require( 'mongoose' );
 
+// 2 -
+// import in the router
+// and now all we have to do is make authRoutes the argument to app.use(); bwlow and this is equal
+// to pasting in all the routes instead and let's go to 3 - below
+const authRoutes = require( './routes/authRoutes' );
+
+// End of 2 -
+
 // create an instance of an Express app
 const app = express();
 
@@ -57,6 +65,24 @@ app.get( '/smoothies', ( req, res ) => {
     res.render( 'smoothies' );
 
 } );
+
+
+
+// 3 -
+// use " app.use( authRoutes ); " to bring in all the routes from the authRoutes.js file and
+// remember " app.use( authRoutes ); " has to go before route #3 below, otherwise route #3 will
+// run and everytime we go to " localhost:3006/signup ", for example, we will get a 404 page
+app.use( authRoutes );
+
+// now let's go to the homepage and test our the following 2 routes: " /signup " and " /login "
+// and I see everything is working as expected
+
+// we also want to test our post requests or routes #2 and #4 in the authRoutes.js file but we
+// don't have the signup or login forms created yet so we need a quick way to test these two routes
+// and in the next lesson we will use a tool called " postman " to test these 2 routes
+
+// End of 3 -
+
 
 // route #3
 // create the 404 response and manually set the status code to 404
