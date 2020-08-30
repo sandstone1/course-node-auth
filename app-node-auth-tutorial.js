@@ -1744,22 +1744,6 @@ app.use( ( req, res ) => {
 // -------------------- END OF FILE
 
 
-// now let's push our changes to GitHub but first let's create a new branch called
-// " lesson-3 " and we can do that by typing:
-
-// git branch newBranchName - allows us to add a new branch and give it a name
-// git checkout newBranchName - move to the newBranchName branch and start working on that branch
-
-// so let's do:
-
-// " Rogers-iMac:node_auth_tutorial Home$ git branch lesson-3 "
-// " Rogers-iMac:node_auth_tutorial Home$ git checkout lesson-3 "
-// " Rogers-iMac:node_auth_tutorial Home$ git status "
-// " Rogers-iMac:node_auth_tutorial Home$ git add . "
-// " Rogers-iMac:node_auth_tutorial Home$ git commit -m " first commit " "
-// " Rogers-iMac:node_auth_tutorial Home$ git push origin lesson-3 "
-
-
 
 
 

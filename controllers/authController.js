@@ -21,7 +21,6 @@ module.exports.signup_get = ( req, res ) => {
 // End of 2 -
 
 
-
 // controller #2
 // create a new user in database
 module.exports.signup_post = ( req, res ) => {
