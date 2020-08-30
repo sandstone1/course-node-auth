@@ -66,13 +66,6 @@ let port = process.env.PORT || 3006;
 // click on " Connect your application " we will see a new pop up model and inside this modal is a
 // connection string and let's copy that connection string and then place it below
 
-// and referring to the connection string below, the net ninja said everything after
-// " net-ninja-auth-tutorial " can be deleted since we don't need any of that
-const dbURI = 'mongodb+srv://net-ninja-node:test1234@cluster1.ygd2v.mongodb.net/net-ninja-auth-tutorial';
-
-mongoose.connect( dbURI, { useNewUrlParser : true, useUnifiedTopology : true } )
-    .then( ( result ) => app.listen( port ) )
-    .catch( ( error ) => console.log( error ) );
 
 // routes
 // route #1
