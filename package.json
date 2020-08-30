@@ -24,7 +24,6 @@
     "bugs": {
         "url": "https://github.com/iamshaunjp/node-express-jwt-auth.git/issues"
     },
-    "homepage": "https://c-node-auth.herokuapp.com/",
     "engines": {
         "node": "10.x"
     }
