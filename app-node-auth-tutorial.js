@@ -821,6 +821,9 @@ Rogers-iMac:node_auth_tutorial Home$ nodemon app
 
 
 
+
+
+
 // ==============================
 // TUTORIAL 2 - Auth Routes & Controllers
 // ==============================
@@ -1323,7 +1326,450 @@ app.use( ( req, res ) => {
 
 
 // ==============================
-// TUTORIAL 3 - Testing Routes & Handling POST Requests
+// TUTORIAL 3 - Testing Routes with Postman
+// ==============================
+
+// we want to be able to test the POST routes in our application and to do that we will use
+// a tool called postman and postman allows us to simulate requests to a server when we don't
+// have a front end to do that for us, like in our case where we don't have any forms created
+// yet so that we can test the POST request but we can use postman instead to simulate those
+// requests
+
+// and let's go download postman and then open postman and on the postman website it says:
+// " What is Postman? Postman is a collaboration platform for API development. Postman's features
+// simplify each step of building an API and streamline collaboration so you can create better
+// APIs—faster. "
+
+// now I'm inside the postman window or home page for the app and I need to press the
+// " Create a request " tab and then I will be taken to a page where I choose the type of request
+// ( GET, POST, PUT, DELETE, ETC. ) and the text field for the route and a blue button that says
+// " Send " and so let's try:
+
+// GET      http://localhost:3006
+
+// and the result is ( above the result is the word " body " underlined and I see " HTML " in the
+// dropdown menu to the right of " body ":
+
+/*
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+
+    <title>Document</title>
+
+</head>
+
+</html>
+
+<body>
+
+    <nav>
+        <h1><a href="/">Ninja Smoothies</a></h1>
+    </nav>
+
+
+    <div class="home">
+
+        <div class="smoothie">
+
+            <img src="/smoothie.png" alt="">
+
+        </div>
+
+        <div class="heading">
+
+            <h2>Smoothie Recipes</h2>
+            <h3>By Ninjas For Ninjas</h3>
+
+            <a href="/smoothies" class="btn">View Recipes</a>
+
+        </div>
+
+    </div>
+
+    <footer>Copyright 2020 Ninja Smoothies</footer>
+
+</body>
+
+</html>
+*/
+
+// and that is correct so everything is working as expected and now let's try:
+
+// GET      http://localhost:3006/signup
+
+// then the result is:
+
+/*
+<!--
+    // 1 -
+    // and after we bring in the partials and add the h1 tag, let go to the login.ejs file 1 -
+-->
+
+<html lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="/styles.css">
+
+	<title>Document</title>
+
+</head>
+
+</html>
+
+<body>
+
+	<nav>
+		<h1><a href="/">Ninja Smoothies</a></h1>
+	</nav>
+
+
+	<h1>Sign Up</h1>
+
+
+	<footer>Copyright 2020 Ninja Smoothies</footer>
+
+</body>
+
+</html>
+*/
+
+// and this is correct so everything is working as expected
+
+// and what we want to do is test the post requests as well so let's change the type from GET to
+// POST and if we do:
+
+// POST      http://localhost:3006/signup
+
+// and we can check controller #2 in the authController.js file to see what the response should
+// be and the response should be " new signup " and the result in postman is " new signup "
+// so everything is working as expected or we know our POST request is working properly and 
+// we know this by testing the request in postman
+
+// and if we do:
+
+// POST      http://localhost:3006/login
+
+// we see the result " new login " and this is correct so everything is working as expected
+
+// and when a user signs up for an app they will send along some data like a username and email
+// address along with a POST request and we can also simulate sending data in postman and to do
+// that in postman we need to go to the " body " tab right below the request field and there are
+// several tabs that look like:
+
+// Params / Authorization / Headers / Body / Pre-request Script / Test / Settings
+
+// and when we click on the Body tab, we get the following tabs below Body:
+
+// none / form-data / x www-form-urlencoded / raw / binary / GraphQL
+
+// and we want to click on the raw tab and then a dropdown will appear with the following
+// types of data in the dropdown:
+
+// text / JavaScript / JSON / HTML / XML
+
+// and we want to click on the " JSON " type and then below that we will add an object in the
+// textarea box and this object will simulate the sending of JSON data fron a browser to a
+// server or we will simulate sending this data at the same time we make the following POST
+// request " http://localhost:3006/login " and the object we will send is:
+
+/*
+{
+    "email": "mario@google.com",
+    "password": "test12"
+}
+*/
+
+// now to be able to recieve this object on the server we need to change contorller function
+// #2 and #4 in the authContorller.js file so let's go to the authController.js file 2 -
+
+
+
+// ==============================
+// BACK FROM NODE_AUTH_TUTORIAL/CONTROLLERS/AUTHCONTROLLLER.JS -- NOTES PERTAIN TO 2 -, 3 -, 4 -
+// ==============================
+
+
+// controller #1
+// renders the sign up page
+module.exports.signup_get = ( req, res ) => {
+
+    res.render( 'signup' );
+
+};
+
+
+// 2 -
+// coming from the app-node-auth-tutorial file and we want to be able to grab the data
+// that is sent to us by postman inside the request handler or the controller function
+// and remember we are simulating data being sent to the server by the browser and there
+// are 2 stpes involved in being able to grab the data inside the request handler and the
+// first step is to use the Express JSON parser middleware and let's do that in the app.js
+// file 4 -
+
+// End of 2 -
+
+
+// controller #2
+// create a new user in database
+module.exports.signup_post = ( req, res ) => {
+
+    // 4 -
+    // and in postman, let's do the following:
+
+    // POST      http://localhost:3006/signup
+    
+    // and in the textarea:
+
+    /*
+        {
+            "email": "jill@google.com",
+            "password": "test12"
+        }
+    */
+        
+    const { email, password } = req.body;
+
+    // so now we have access to the email and password key value pairs
+
+    // let's log out email and password to make sure this is working
+    console.log( email, password );
+
+    // and if we test this out in postman, we get the following result in postman:
+    // " new signup "
+
+    // and this is correct so everything is working here
+
+    // and we get the following response in the integrated terminal:
+    // " jill@google.com test12 "
+
+    // and this is correct so everything is working here as well which is great
+
+    // and ultimately we will send a POST request from a browser after a user submits a form
+    // but until we create those forms on the front end Postman will be our friend and now
+    // we know all of our route handlers are working or controller functions 1 - 4 in this file
+    // and we know we can test these route handlers going forward with Postman and in the next
+    // lesson we are going to create a user model with Mongoose
+
+    // End of 4 -
+
+
+    // for now, let's just send some text to the webpage
+    res.send( 'new signup' );
+
+};
+
+
+// controller #3
+// renders the log in page
+module.exports.login_get = ( req, res ) => {
+
+    res.render( 'login' );
+
+};
+
+
+// controller #4
+// authenticate a current user
+module.exports.login_post = ( req, res ) => {
+
+    // 3 -
+    // coming from hte app.js file 4-
+    // now let's access the object that was sent from postman along with the POSt request
+    // to the following route " /login " and let's log out that data so we can see it in
+    // postman and we do that below by doing " console.log( req.body ); "
+    // console.log( req.body );
+
+    // and if we test this out in postman, we get the following result in postman:
+    // " new login "
+
+    // and this is correct so everything is working here
+
+    // and the following response in the integrated terminal:
+    // " { email: 'mario@google.com', password: 'test12' } "
+
+    // and this is correct so everything is working here as well
+
+    // now let's comment out " console.log( req.body ); " above and then use destructuring to
+    // bring in the email and password properties to this request handler function
+    const { email, password } = req.body;
+
+    // so now we have access to the email and password key value pairs
+
+    // let's log out email and password to make sure this is working
+    console.log( email, password );
+
+    // and if we test this out in postman, we get the following result in postman:
+    // " new login "
+
+    // and this is correct so everything is working here
+
+    // and we get the following response in the integrated terminal:
+    // " mario@google.com test12 "
+
+    // and this is correct so everything is working here as well and let's try the same thing
+    // in the signup POST request so go to 4 - above
+
+    // End of 3 -
+
+
+    // for now, let's just send some text to the webpage
+    res.send( 'new login' );
+
+};
+
+
+
+
+// -------------------- END OF FILE
+
+
+
+
+
+// ==============================
+// BACK FROM NODE_AUTH_TUTORIAL/APP.JS -- NOTES PERTAIN TO 4 -
+// ==============================
+
+
+// this file or app.js will kickstart our application  
+
+// import in Express
+const express = require( 'express' );
+
+// import in Mongoose
+const mongoose = require( 'mongoose' );
+
+// import in the router
+const authRoutes = require( './routes/authRoutes' );
+
+// create an instance of an Express app
+const app = express();
+
+
+// 4 -
+// use the Express JSON parser middleware
+
+// what " app.use( express.json() ); " does is it takes any JSON data that comes along with
+// a request and it passes that data into a JavaScript object and then we can use this object
+// inside the application or more specifically this JavaScript object is atached to the request
+// so that we can access this JavaScript object inside our request handlers
+app.use( express.json() );
+
+// so going back to postman, if we send this data or object:
+
+/*
+{
+    "email": "mario@google.com",
+    "password": "test12"
+}
+*/
+
+// to this endpoint: " http://localhost:3006/login " as part of a POST request then what happens
+// is this data or object is attached to the POST request and we can access this object inside
+// the request handler in the authController.js file 2 - and let's go back to the authController.js
+// file 3 -
+
+// End of 4 -
+
+
+// use express.static(); to serve static files and make " public " the argument to
+// express.static(); and this will enable us to use the " public " folder to serve static
+// files
+app.use( express.static( 'public' ) );
+
+// register the view engine as ejs
+app.set( 'view engine', 'ejs' );
+
+// Brad Schiff said we have to make our port number dynamic in order for our app to work on Heroku
+let port = process.env.PORT || 3006;
+
+// create the database connection
+const dbURI = 'mongodb+srv://net-ninja-node:test1234@cluster1.ygd2v.mongodb.net/net-ninja-auth-tutorial';
+
+mongoose.connect( dbURI, { useNewUrlParser : true, useUnifiedTopology : true } )
+    .then( ( result ) => app.listen( port ) )
+    .catch( ( error ) => console.log( error ) );
+
+// routes
+// route #1
+// route is "/"
+// renders the home page
+app.get( '/', ( req, res ) => {
+
+    res.render( 'home' );
+
+} );
+
+// route #2
+// route is "/smoothies"
+// renders the smoothies page
+app.get( '/smoothies', ( req, res ) => {
+
+    res.render( 'smoothies' );
+
+} );
+
+// routes #1, #2, #3 and #4 in the authRoutes.js file
+// use " app.use( authRoutes ); " to bring in all the routes from the authRoutes.js file
+app.use( authRoutes );
+
+// route #3
+// create the 404 response and manually set the status code to 404
+// no route and if we get to this part in the code app.use(); will always run
+// renders the 404 page
+// since I added route #4 myself, remember to add a view for the 404 page
+app.use( ( req, res ) => {
+
+    res.status( 404 ).render( '404', { title : '404' } );
+
+} );
+
+
+
+
+// -------------------- END OF FILE
+
+
+// now let's push our changes to GitHub but first let's create a new branch called
+// " lesson-3 " and we can do that by typing:
+
+// git branch newBranchName - allows us to add a new branch and give it a name
+// git checkout newBranchName - move to the newBranchName branch and start working on that branch
+
+// so let's do:
+
+// " Rogers-iMac:node_auth_tutorial Home$ git branch lesson-3 "
+// " Rogers-iMac:node_auth_tutorial Home$ git checkout lesson-3 "
+// " Rogers-iMac:node_auth_tutorial Home$ git status "
+// " Rogers-iMac:node_auth_tutorial Home$ git add . "
+// " Rogers-iMac:node_auth_tutorial Home$ git commit -m " first commit " "
+// " Rogers-iMac:node_auth_tutorial Home$ git push origin lesson-3 "
+
+
+
+
+
+
+
+
+
+
+// ==============================
+// TUTORIAL 4 - User Model
 // ==============================
 
 // 

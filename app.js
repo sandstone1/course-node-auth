@@ -11,7 +11,7 @@ const mongoose = require( 'mongoose' );
 
 // 2 -
 // import in the router
-// and now all we have to do is make authRoutes the argument to app.use(); bwlow and this is equal
+// and now all we have to do is make authRoutes the argument to app.use(); below and this is equal
 // to pasting in all the routes instead and let's go to 3 - below
 const authRoutes = require( './routes/authRoutes' );
 
@@ -19,6 +19,33 @@ const authRoutes = require( './routes/authRoutes' );
 
 // create an instance of an Express app
 const app = express();
+
+
+// 4 -
+// use the Express JSON parser middleware
+
+// what " app.use( express.json() ); " does is it takes any JSON data that comes along with
+// a request and it passes that data into a JavaScript object and then we can use this object
+// inside the application or more specifically this JavaScript object is atached to the request
+// so that we can access this JavaScript object inside our request handlers
+app.use( express.json() );
+
+// so going back to postman, if we send this data or object:
+
+/*
+{
+    "email": "mario@google.com",
+    "password": "test12"
+}
+*/
+
+// to this endpoint: " http://localhost:3006/login " as part of a POST request then what happens
+// is this data or object is attached to the POST request and we can access this object inside
+// the request handler in the authController.js file 2 - and let's go back to the authController.js
+// file 3 -
+
+// End of 4 -
+
 
 // use express.static(); to serve static files and make " public " the argument to
 // express.static(); and this will enable us to use the " public " folder to serve static
